@@ -44,8 +44,6 @@ def add_car(car):
     cursor.execute(query, values)
     conn.commit()
     cursor.close()
-    result = "Car added successfully" 
-    return result
 
 def update_car(car):
     if conn is None:
@@ -56,9 +54,7 @@ def update_car(car):
     cursor = conn.cursor()
     cursor.execute(query, values)
     conn.commit()
-    result = "Car updated successfully"
     cursor.close()
-    return result
 
 def delete_car(reg):
     if conn is None:
@@ -67,9 +63,8 @@ def delete_car(reg):
 
     cursor = conn.cursor()
     cursor.execute(query, (reg,))
-    result = "Car deleted from database successfully"
+    conn.commit()
     cursor.close()
-    return result
 
 
 

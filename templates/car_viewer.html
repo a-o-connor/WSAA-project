@@ -4,8 +4,8 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
-    <body>
-        <h1>Cars</h1>
+    <body onload="getAllAjax()">
+        <h1>CAAAAAAARS</h1>
         <div> <button id="showCreateButton" onclick="showCreate()">Create</button></div>
         <div>
             <table class="table" id="carTable">
@@ -24,39 +24,41 @@
         </div>
         <div id='createUpdateForm' style="display: none">
                 <h2><span id="createLabel">Add a</span> <span id="updateLabel">Update a</span> Car</h2>
-                Registration <input type="text" name="registration" /><br/>
-                Make <input type="text" name="make"/> <br/>
-                Model <input type="text" name="model"/> <br/>
-                Colour <input type="text" name="colour"/> <br/>
-                Mileage <input type="number" name="mileage"/> <br/>
-                Engine Size <input type="number" name="engineSize"/> <br/>
+                Registration <input type="text" name="registration" id="registration_input" /><br/>
+                Make <input type="text" name="make" id="make_input"/> <br/>
+                Model <input type="text" name="model" id="model_input"/> <br/>
+                Colour <input type="text" name="colour" id="colour_input"/> <br/>
+                Mileage <input type="number" name="mileage" id="mileage_input"/> <br/>
+                Engine Size <input type="number" name="engineSize" id="engine_input"/> <br/>
                 <span><button id="doCreateButton" onclick="doCreate()">Create</button></span>
                 <span><button id="doUpdateButton" onclick="doUpdate()">Update</button></span>
         </div>
     </body>
     <script>
         // Functions for showing different parts of the HTML page, depending on what is clicked: 
+    function showViewAll(){
+        document.getElementById('showCreateButton').style.display="block"
+        document.getElementById('carTable').style.display="block"
+        document.getElementById('createUpdateForm').style.display="none"
+    }
     function showCreate(){
         document.getElementById('showCreateButton').style.display="none"
         document.getElementById('carTable').style.display="none"
         document.getElementById('createUpdateForm').style.display="block"
 
+        document.getElementById('registration_input').disabled = false;
         document.getElementById('createLabel').style.display="inline"
         document.getElementById('updateLabel').style.display="none"
 
         document.getElementById('doCreateButton').style.display="block"
         document.getElementById('doUpdateButton').style.display="none"
     }
-    function showViewAll(){
-        document.getElementById('showCreateButton').style.display="block"
-        document.getElementById('carTable').style.display="block"
-        document.getElementById('createUpdateForm').style.display="none"
-    }
     function showUpdate(buttonElement){
         document.getElementById('showCreateButton').style.display="none"
         document.getElementById('carTable').style.display="none"
         document.getElementById('createUpdateForm').style.display="block"
 
+        document.getElementById('registration_input').disabled=true;
         document.getElementById('createLabel').style.display="none"
         document.getElementById('updateLabel').style.display="inline"
 
@@ -73,13 +75,12 @@
     function getCarFromForm(){
         var form = document.getElementById('createUpdateForm')
         var car = {}
-        car.registration=form.querySelector('input[name="registration"]').value
-        car.make=form.querySelector('input[name="make"]').value
-        car.model=form.querySelector('input[name="model"]').value
-        car.colour=form.querySelector('input[name="colour"]').value 
-        car.mileage=form.querySelector('input[name="mileage"]').value
-        car.engineSize=form.querySelector('input[name="engineSize"]').value  
-        console.log(JSON.stringify(car))
+        car.registration = document.getElementById('registration_input').value;
+        car.make = document.getElementById('make_input').value;
+        car.model = document.getElementById('model_input').value;
+        car.colour = document.getElementById('colour_input').value;
+        car.mileage = document.getElementById('mileage_input').value;
+        car.engineSize = document.getElementById('engine_input').value;
         return car
     }
     function clearForm(){
@@ -129,9 +130,9 @@
         var cell6 = rowElement.insertCell(5);
         cell6.innerHTML = car.engineSize
         var cell7 = rowElement.insertCell(6);
-        cell7.innerHTML = '<button onclick="showUpdate(car)">Update</button>'
+        cell7.innerHTML = '<button onclick="showUpdate(this)">Update</button>'
         var cell8 = rowElement.insertCell(7);
-        cell8.innerHTML = '<button onclick=doDelete(this)>delete</button>'
+        cell8.innerHTML = '<button onclick=doDelete(this)>Delete</button>'
     }
     function populateFormWithCar(car){
         var form = document.getElementById('createUpdateForm')
@@ -160,7 +161,7 @@
         var row = buttonElement.closest("tr");
         var reg = row.getAttribute("data-reg");
 
-        deleteCarAjax(rowElement.getAttribute(reg));
+        deleteCarAjax(reg);
     }
 
     // All the Ajax Functions: Get all cars from the database and populate table, create a car, update a car, and delete a car: 
@@ -181,17 +182,17 @@
         });
     }
     function createCarAjax(car){
-        console.log(JSON.stringify(car));
         $.ajax({
             "url": "/cars",
             "method":"POST",
             "data":JSON.stringify(car),
             "dataType": "JSON",
-            contentType: "application/json; charset=utf-8",
+            "contentType": "application/json; charset=utf-8",
             "success":function(result){
-                addCarToTable(car)
-                clearForm()
-                showViewAll()
+                console.log(result);
+                clearForm();
+                addCarToTable(result);
+                showViewAll();
             },
             "error":function(xhr,status,error){
                 console.log("error: "+status+" msg:"+error);
@@ -200,12 +201,13 @@
     }
     function updateCarAjax(car){
         $.ajax({
-            "url": "/cars/"+encodeURI(car.registration),
+            "url": "/cars",
             "method":"PUT",
             "data":JSON.stringify(car),
             "dataType": "JSON",
             "contentType": "application/json; charset=utf-8",
             "success":function(result){
+                console.log(result);
                 var row = document.querySelector(`tr[data-reg="${car.registration}"]`) 
                 setCarInRow(row,car)
                 clearForm()
@@ -237,7 +239,5 @@
             }
         });
     }
-    getAllAjax();
-    
     </script>
 </html>

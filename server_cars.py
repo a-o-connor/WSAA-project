@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import car_dao_wsaa
 import pymysql
 
@@ -6,7 +6,7 @@ app = Flask(__name__, static_url_path="", static_folder="staticpages")
 
 @app.route("/", methods = ["GET"])
 def index():
-    return "<h1>AGHHHHHHHH</h1>"
+    return render_template("car_viewer.html")
 
 @app.route("/cars", methods = ["GET"])
 def get_all_cars():
@@ -16,8 +16,11 @@ def get_all_cars():
 @app.route("/cars/<reg>", methods = ["GET"])
 def get_car_by_reg(reg):
     try:
-        car = car_dao_wsaa.get_car_by_reg(reg) 
-        return jsonify(car)
+        car = car_dao_wsaa.get_car_by_reg(reg)
+        if car: 
+            return jsonify(car)
+        else:
+            return f"Error: Car with registration {reg} not found" 
     except pymysql.err.IntegrityError as e:
         return jsonify({"error": f"Car with registration {reg} not found"}), 404
     except Exception as e:
@@ -26,8 +29,8 @@ def get_car_by_reg(reg):
 @app.route("/cars/<reg>", methods = ["DELETE"])
 def delete_car(reg):
     try:
-         result = car_dao_wsaa.delete_car(reg)
-         return result
+         car_dao_wsaa.delete_car(reg)
+         return jsonify({"registration": reg})
     except pymysql.err.IntegrityError as e:
         return jsonify({"error": f"Car with registration {reg} not found"}), 404
     except Exception as e:
@@ -38,8 +41,8 @@ def delete_car(reg):
 def add_car():
     try:
          json_car = request.json
-         result = car_dao_wsaa.add_car(json_car)
-         return result
+         car_dao_wsaa.add_car(json_car)
+         return jsonify(json_car)
     except pymysql.err.IntegrityError as e:
         return jsonify({"error": f"Car with registration {json_car.get('registration')} already exists in database"}), 404
     except Exception as e:
@@ -49,8 +52,8 @@ def add_car():
 def update_car():
     try:
          json_car = request.json
-         result = car_dao_wsaa.update_car(json_car)
-         return result
+         car_dao_wsaa.update_car(json_car)
+         return jsonify(json_car)
     except pymysql.err.IntegrityError as e:
         return jsonify({"error": f"Car with registration {json_car.get('registration')} not found"}), 404
     except Exception as e:
