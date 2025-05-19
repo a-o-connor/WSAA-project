@@ -1,8 +1,6 @@
 import pymysql
 import dbconfig_pythonanywhere as config
 
-conn = None
-
 def connect():
     return pymysql.connect(
         host=config.mysql['host'],
