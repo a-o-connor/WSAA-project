@@ -4,25 +4,22 @@ import dbconfig_pythonanywhere as config
 conn = None
 
 def connect():
-    global conn
-    conn = pymysql.connect(
-    host=config.mysql['host'],
-    user=config.mysql['user'],
-    password=config.mysql['password'],
-    database=config.mysql['database'],
-    cursorclass=pymysql.cursors.DictCursor
+    return pymysql.connect(
+        host=config.mysql['host'],
+        user=config.mysql['user'],
+        password=config.mysql['password'],
+        database=config.mysql['database'],
+        cursorclass=pymysql.cursors.DictCursor
 )
    
 def get_all_cars():
-    if conn is None:
-        connect()
-    query = "SELECT * FROM CAR"
-
-    cursor = conn.cursor()
-    cursor.execute(query)
-    result = cursor.fetchall()
-    cursor.close()
-    return result
+    with connect as conn:
+        query = "SELECT * FROM CAR"
+        cursor = conn.cursor()
+        cursor.execute(query)
+        result = cursor.fetchall()
+        cursor.close()
+        return result
 
 def get_car_by_reg(registration):
     if conn is None:
