@@ -10,20 +10,19 @@ def connect():
         password=config.mysql['password'],
         database=config.mysql['database'],
         cursorclass=pymysql.cursors.DictCursor
-)
+        )
    
 def get_all_cars():
-    with connect as conn:
-        query = "SELECT * FROM CAR"
-        cursor = conn.cursor()
-        cursor.execute(query)
-        result = cursor.fetchall()
-        cursor.close()
-        return result
+    conn = connect()
+    query = "SELECT * FROM CAR"
+    cursor = conn.cursor()
+    cursor.execute(query)
+    result = cursor.fetchall()
+    cursor.close()
+    return result
 
 def get_car_by_reg(registration):
-    if conn is None:
-        connect()
+    conn = connect()
     query = "SELECT * FROM CAR WHERE registration = %s"
 
     cursor = conn.cursor()
@@ -33,8 +32,7 @@ def get_car_by_reg(registration):
     return result
     
 def add_car(car):
-    if conn is None:
-        connect()
+    conn = connect()
     query = "INSERT INTO car(registration,make,model,colour,mileage,engineSize) VALUES (%s, %s, %s, %s, %s, %s)"
     values = (car.get("registration"), car.get("make"),car.get("model"),car.get("colour"),car.get("mileage"),car.get("engineSize"))
 
@@ -44,8 +42,7 @@ def add_car(car):
     cursor.close()
 
 def update_car(car):
-    if conn is None:
-        connect()
+    conn = connect()
     query = "UPDATE car SET make=%s, model=%s, colour=%s, mileage=%s, engineSize=%s  WHERE registration= %s"
     values = (car.get("make"),car.get("model"),car.get("colour"),car.get("mileage"),car.get("engineSize"), car.get("registration"))
 
@@ -55,8 +52,7 @@ def update_car(car):
     cursor.close()
 
 def delete_car(reg):
-    if conn is None:
-        connect()
+    conn = connect()
     query = "DELETE FROM CAR WHERE registration = %s"
 
     cursor = conn.cursor()
@@ -65,6 +61,3 @@ def delete_car(reg):
     cursor.close()
 
 
-
-
-# %%
