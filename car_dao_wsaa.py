@@ -12,7 +12,7 @@ def connect():
    
 def get_all_cars():
     conn = connect()
-    query = "SELECT * FROM CAR"
+    query = "SELECT * FROM car"
     cursor = conn.cursor()
     cursor.execute(query)
     result = cursor.fetchall()
@@ -21,7 +21,7 @@ def get_all_cars():
 
 def get_car_by_reg(registration):
     conn = connect()
-    query = "SELECT * FROM CAR WHERE registration = %s"
+    query = "SELECT * FROM car WHERE registration = %s"
 
     cursor = conn.cursor()
     cursor.execute(query, (registration,))
@@ -51,7 +51,7 @@ def update_car(car):
 
 def delete_car(reg):
     conn = connect()
-    query = "DELETE FROM CAR WHERE registration = %s"
+    query = "DELETE FROM car WHERE registration = %s"
 
     cursor = conn.cursor()
     cursor.execute(query, (reg,))
