@@ -1,17 +1,18 @@
 import pymysql
+import dbconfig_pythonanywhere as config
 
-conn = None 
+conn = None
 
 def connect():
     global conn
     conn = pymysql.connect(
-    host="localhost",
-    user="root",
-    password="",
-    database="lab1",
+    host=config.mysql['host'],
+    user=config.mysql['user'],
+    password=config.mysql['password'],
+    database=config.mysql['database'],
     cursorclass=pymysql.cursors.DictCursor
 )
-    
+   
 def get_all_cars():
     if conn is None:
         connect()
@@ -68,3 +69,5 @@ def delete_car(reg):
 
 
 
+
+# %%
