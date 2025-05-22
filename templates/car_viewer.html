@@ -5,9 +5,10 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
     <body onload="getAllAjax()">
-        <h1>CAAAAAAARS</h1>
-        <div> <button id="showCreateButton" onclick="showCreate()">Create</button></div>
+        <h1>Cars</h1>
+        <div> <button id="showCreateButton" onclick="showCreate()">Add New Car to Database</button>    <button id="showLicencedCarsButton" onclick="showLicencedCars()">View Recently Licenced Cars</button></div> 
         <div>
+            <h3>Cars Database Table</h3>
             <table class="table" id="carTable">
                 <tr>
                         <th>Registration</th>
@@ -19,8 +20,17 @@
                         <th>Update</th>
                         <th>Delete</th>
                 </tr>
-                
             </table>
+        </div>
+        <div id="licencedCarsTable" style="display: none">
+            <h3>Cars Licenced in Ireland Recently</h3>
+            <table class="table" id="recentlyLicencedCarsIrelandTable" style="display: none">
+                <tr>
+                        <th>County</th>
+                        <th>Cars</th>
+                </tr>
+            </table>
+            <div><button id="hideLicencedCarsButton" onclick="hideLicencedCars()">Return to Cars Database</button></div></div>
         </div>
         <div id='createUpdateForm' style="display: none">
                 <h2><span id="createLabel">Add a</span> <span id="updateLabel">Update a</span> Car</h2>
@@ -39,11 +49,22 @@
     function showViewAll(){
         document.getElementById('showCreateButton').style.display="block"
         document.getElementById('carTable').style.display="block"
+        document.getElementById('showLicencedCarsButton').style.display="block"
+        document.getElementById('licencedCarsTable').style.display="none"
+        document.getElementById('createUpdateForm').style.display="none"
+    }
+    function showRecentlyLicencedTable(){
+        document.getElementById('showCreateButton').style.display="none"
+        document.getElementById('carTable').style.display="none"
+        document.getElementById('showLicencedCarsButton').style.display="none"
+        document.getElementById('licencedCarsTable').style.display="block"
         document.getElementById('createUpdateForm').style.display="none"
     }
     function showCreate(){
         document.getElementById('showCreateButton').style.display="none"
         document.getElementById('carTable').style.display="none"
+        document.getElementById('showLicencedCarsButton').style.display="none"
+        document.getElementById('licencedCarsTable').style.display="none"
         document.getElementById('createUpdateForm').style.display="block"
 
         document.getElementById('registration_input').disabled = false;
@@ -56,6 +77,8 @@
     function showUpdate(buttonElement){
         document.getElementById('showCreateButton').style.display="none"
         document.getElementById('carTable').style.display="none"
+        document.getElementById('showLicencedCarsButton').style.display="none"
+        document.getElementById('licencedCarsTable').style.display="none"
         document.getElementById('createUpdateForm').style.display="block"
 
         document.getElementById('registration_input').disabled=true;
@@ -163,6 +186,12 @@
 
         deleteCarAjax(reg);
     }
+    function showLicencedCars(){
+        licencedCarsAjax()
+    }
+    function hideLicencedCars(){
+        showViewAll()
+    }
 
     // All the Ajax Functions: Get all cars from the database and populate table, create a car, update a car, and delete a car: 
     function getAllAjax(){
@@ -233,6 +262,26 @@
                 } else {
                     console.warn("Row not found for reg:", reg);
                 }
+            },
+            "error":function(xhr,status,error){
+                console.log("error: "+status+" msg:"+error);
+            }
+        });
+    }
+    function licencedCarsAjax(){
+        $.ajax({
+            "url": "/cars/recently_licenced_ireland",
+            "method":"GET",
+            "data":"",
+            "dataType": "JSON",
+            "contentType": "application/json; charset=utf-8",
+            "success":function(result){
+                for (county in result){
+                    const cars = result[county]
+                    const row = `<tr><td>${county}</td><td>${cars}</td></tr>`;
+                    $("#licencedCarsTable").append(row);
+                }
+                showRecentlyLicencedTable();
             },
             "error":function(xhr,status,error){
                 console.log("error: "+status+" msg:"+error);

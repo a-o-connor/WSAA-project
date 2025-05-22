@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, render_template
 import car_dao_wsaa
+import private_cars_cso_dao
 import pymysql
 
 app = Flask(__name__, static_url_path="", static_folder="staticpages")
@@ -58,6 +59,11 @@ def update_car():
         return jsonify({"error": f"Car with registration {json_car.get('registration')} not found"}), 404
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+@app.route("/cars/recently_licenced_ireland", methods = ["GET"])
+def cars_licenced_ireland():
+    result = jsonify(private_cars_cso_dao.cars_licenced)
+    return result
 
 
 
