@@ -62,7 +62,10 @@ def update_car():
 
 @app.route("/cars/recently_licenced_ireland", methods = ["GET"])
 def cars_licenced_ireland():
-    result = jsonify(private_cars_cso_dao.cars_licenced)
+    result = {
+        "month": private_cars_cso_dao.month,
+        "cars_licenced": private_cars_cso_dao.cars_licenced
+    }
     return result
 
 

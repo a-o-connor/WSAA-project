@@ -7,9 +7,9 @@
     <body onload="getAllAjax()">
         <h1>Cars</h1>
         <div> <button id="showCreateButton" onclick="showCreate()">Add New Car to Database</button>    <button id="showLicencedCarsButton" onclick="showLicencedCars()">View Recently Licenced Cars</button></div> 
-        <div>
+        <div id="carTable">
             <h3>Cars Database Table</h3>
-            <table class="table" id="carTable">
+            <table class="table" id="carDatabaseTable">
                 <tr>
                         <th>Registration</th>
                         <th>Make</th>
@@ -23,7 +23,7 @@
             </table>
         </div>
         <div id="licencedCarsTable" style="display: none">
-            <h3>Cars Licenced in Ireland Recently</h3>
+            <h3>Cars Licenced in Ireland: <span id="licencedCarsMonth">[Month]</span></h3>
             <table class="table" id="recentlyLicencedCarsIrelandTable" style="display: none">
                 <tr>
                         <th>County</th>
@@ -53,12 +53,14 @@
         document.getElementById('licencedCarsTable').style.display="none"
         document.getElementById('createUpdateForm').style.display="none"
     }
-    function showRecentlyLicencedTable(){
+    function showRecentlyLicencedTable(month){
         document.getElementById('showCreateButton').style.display="none"
         document.getElementById('carTable').style.display="none"
         document.getElementById('showLicencedCarsButton').style.display="none"
-        document.getElementById('licencedCarsTable').style.display="block"
         document.getElementById('createUpdateForm').style.display="none"
+
+        document.getElementById('licencedCarsTable').style.display="block"
+        document.getElementById("licencedCarsMonth").innerText = month;
     }
     function showCreate(){
         document.getElementById('showCreateButton').style.display="none"
@@ -276,12 +278,15 @@
             "dataType": "JSON",
             "contentType": "application/json; charset=utf-8",
             "success":function(result){
-                for (county in result){
-                    const cars = result[county]
+                month = result["month"]
+                cars_licenced_dict = result["cars_licenced"]
+                for (county in cars_licenced_dict){
+                    const cars = cars_licenced_dict[county]
                     const row = `<tr><td>${county}</td><td>${cars}</td></tr>`;
                     $("#licencedCarsTable").append(row);
                 }
-                showRecentlyLicencedTable();
+
+                showRecentlyLicencedTable(month);
             },
             "error":function(xhr,status,error){
                 console.log("error: "+status+" msg:"+error);
