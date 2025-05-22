@@ -7,9 +7,9 @@
     <body onload="getAllAjax()">
         <h1>Cars</h1>
         <div> <button id="showCreateButton" onclick="showCreate()">Add New Car to Database</button>    <button id="showLicencedCarsButton" onclick="showLicencedCars()">View Recently Licenced Cars</button></div> 
-        <div id="carTable">
+        <div id="carTablePage">
             <h3>Cars Database Table</h3>
-            <table class="table" id="carDatabaseTable">
+            <table class="table" id="carTable">
                 <tr>
                         <th>Registration</th>
                         <th>Make</th>
@@ -48,14 +48,14 @@
         // Functions for showing different parts of the HTML page, depending on what is clicked: 
     function showViewAll(){
         document.getElementById('showCreateButton').style.display="block"
-        document.getElementById('carTable').style.display="block"
+        document.getElementById('carTablePage').style.display="block"
         document.getElementById('showLicencedCarsButton').style.display="block"
         document.getElementById('licencedCarsTable').style.display="none"
         document.getElementById('createUpdateForm').style.display="none"
     }
     function showRecentlyLicencedTable(month){
         document.getElementById('showCreateButton').style.display="none"
-        document.getElementById('carTable').style.display="none"
+        document.getElementById('carTablePage').style.display="none"
         document.getElementById('showLicencedCarsButton').style.display="none"
         document.getElementById('createUpdateForm').style.display="none"
 
@@ -64,7 +64,7 @@
     }
     function showCreate(){
         document.getElementById('showCreateButton').style.display="none"
-        document.getElementById('carTable').style.display="none"
+        document.getElementById('carTablePage').style.display="none"
         document.getElementById('showLicencedCarsButton').style.display="none"
         document.getElementById('licencedCarsTable').style.display="none"
         document.getElementById('createUpdateForm').style.display="block"
@@ -78,7 +78,7 @@
     }
     function showUpdate(buttonElement){
         document.getElementById('showCreateButton').style.display="none"
-        document.getElementById('carTable').style.display="none"
+        document.getElementById('carTablePage').style.display="none"
         document.getElementById('showLicencedCarsButton').style.display="none"
         document.getElementById('licencedCarsTable').style.display="none"
         document.getElementById('createUpdateForm').style.display="block"
