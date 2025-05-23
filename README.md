@@ -9,21 +9,41 @@
 *********
 
 ## Introduction
-This Git repository contains a Flask app written for the *Web Services and Applications* module, part of my Higher Diploma in Computer Science and Data Analytics at ATU. Details of the contents of each folder in this repository are provided in the **Contents** section below. 
+This Git repository contains a Flask app written for the *Web Services and Applications* module, part of my Higher Diploma in Computer Science and Data Analytics at ATU. The app is hosted at Python Anywhere, at the following link: []
 
-## Contents
+The app links to a SQL database that contains details (registration, make, model, colour, mileage, and engine size) about various cars. On the main page of the app, users can view a table displaying these car records. Buttons allow a user to create, update or delete a car. Any changes made are pushed back to the SQL database and updated the app table. The user can also create a new car and add this to the database. 
 
-### 1. Config 
+The app also links into a publicly available API provided by the CSO. This API reports the number of cars licenced per month across Irish counties. The app pulls the most recent dataset available and displays the cars registered in that month in Ireland, by county. This API is available at the following address: [Private cars licenced - CSO API](https://ws.cso.ie/public/api.restful/PxStat.Data.Cube_API.ReadDataset/DOTM05/JSON-stat/2.0/en). 
+ 
+
+## Repository Structure
+
+### 1. Config Folder 
    - **Files**: `dbconfig.py`,
    - **Description**: A file containing config details for connecting to the Database containing the cars. Currently the config details saved in this file access the database via Python Anywhere. If running the app locally, change these comfig details accordingy. 
 
-### 2. dao
+### 2. DAO Folder
    - **Files**: `car_sql_db_dao.py`, `private_cars_cso_dao.py` 
-   - **Description**: A script that accessses car data from a sql databases, and a script that retrieves the dataset for the **Private Cars Licenced in Ireland** from a public RESTful API supplied by the CSO. 
+   - **Description**: A script that accesses car data from the sql database, and a script that retrieves the dataset from the CSO's public API. 
    - **Libraries/Modules**: `requests`, `json`, `pymysql`
 
-### 3. templates 
+### 3. Templates Folder
    - **File**: `car_viewer.html`  
-   - **Description**: The HTML page that retrieves the data from the different endpoints of the server using AJax, and displays the data in a table. The page allows users to update, create and delete cars in the database.
-   - **Libraries/Modules**: `requests`, `json`, `config`, `github` 
+   - **Description**: The HTML page that communicates with both databases using AJAX functions.
+   - **Libraries/Modules**: `HTML`, `AJAX`, `JavaScript`
+
+### 4. Main
+   - **File**: `server_cars.py`  
+   - **Description**: This file is the Flask server that defines the endpoints that handle the HTTP methods `GET`, `PUT`, `POST` and `DELETE`. The main app links to the HTML page in the template folder for viewing the data. 
+   - **Libraries/Modules**: `requests`, `json`, `config`, `github`
+
+### Dependencies
+- The required Python dependencies are listed in `requirements.txt`.
+- Install dependencies using:
+    ````bash
+    pip install -r requirements.txt
+    ````
+
+
+
 
