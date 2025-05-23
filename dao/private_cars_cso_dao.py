@@ -1,8 +1,7 @@
 ## LIBRARIES
 import requests
 import json
-import statistics 
-from pprint import pprint
+
 url = "https://ws.cso.ie/public/api.restful/PxStat.Data.Cube_API.ReadDataset/DOTM05/JSON-stat/2.0/en"
 response = requests.get(url)
 list = response.json()

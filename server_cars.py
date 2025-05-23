@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, render_template
-import car_dao_wsaa
-import private_cars_cso_dao
+import dao.car_sql_db_dao as car_sql_db_dao
+import dao.private_cars_cso_dao as private_cars_cso_dao
 import pymysql
 
 app = Flask(__name__, static_url_path="", static_folder="staticpages")
@@ -11,13 +11,13 @@ def index():
 
 @app.route("/cars", methods = ["GET"])
 def get_all_cars():
-    car_table = car_dao_wsaa.get_all_cars()
+    car_table = car_sql_db_dao.get_all_cars()
     return jsonify(car_table)
 
 @app.route("/cars/<reg>", methods = ["GET"])
 def get_car_by_reg(reg):
     try:
-        car = car_dao_wsaa.get_car_by_reg(reg)
+        car = car_sql_db_dao.get_car_by_reg(reg)
         if car: 
             return jsonify(car)
         else:
@@ -30,7 +30,7 @@ def get_car_by_reg(reg):
 @app.route("/cars/<reg>", methods = ["DELETE"])
 def delete_car(reg):
     try:
-         car_dao_wsaa.delete_car(reg)
+         car_sql_db_dao.delete_car(reg)
          return jsonify({"registration": reg})
     except pymysql.err.IntegrityError as e:
         return jsonify({"error": f"Car with registration {reg} not found"}), 404
@@ -42,7 +42,7 @@ def delete_car(reg):
 def add_car():
     try:
          json_car = request.json
-         car_dao_wsaa.add_car(json_car)
+         car_sql_db_dao.add_car(json_car)
          return jsonify(json_car)
     except pymysql.err.IntegrityError as e:
         return jsonify({"error": f"Car with registration {json_car.get('registration')} already exists in database"}), 404
@@ -53,7 +53,7 @@ def add_car():
 def update_car():
     try:
          json_car = request.json
-         car_dao_wsaa.update_car(json_car)
+         car_sql_db_dao.update_car(json_car)
          return jsonify(json_car)
     except pymysql.err.IntegrityError as e:
         return jsonify({"error": f"Car with registration {json_car.get('registration')} not found"}), 404

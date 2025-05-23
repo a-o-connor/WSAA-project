@@ -1,5 +1,5 @@
 import pymysql
-import dbconfig_pythonanywhere as config
+import config.dbconfig as config
 
 def connect():
     return pymysql.connect(
