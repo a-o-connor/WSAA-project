@@ -4,13 +4,13 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
-    <body onload="getAllAjax()">
+    <body onload="getAllAjax()" style="background-color:rgb(28, 192, 213);">
         <h1>Cars</h1>
         <div> <button id="showCreateButton" onclick="showCreate()">Add New Car to Database</button>    <button id="showLicencedCarsButton" onclick="showLicencedCars()">View Recently Licenced Cars</button></div> 
         <div id="carTablePage">
             <h3>Cars Database Table</h3>
             <table class="table" id="carTable">
-                <tr>
+                <tr:nth-child(even) {background-color: rgb(28, 192, 213);}>
                         <th>Registration</th>
                         <th>Make</th>
                         <th>Model</th>

@@ -19,12 +19,12 @@ The app also links into a publicly available API provided by the CSO. This API r
 ## Repository Structure
 
 ### 1. Config Folder 
-   - **Files**: `dbconfig.py`,
-   - **Description**: A file containing config details for connecting to the Database containing the cars. Currently the config details saved in this file access the database via Python Anywhere. If running the app locally, change these comfig details accordingy. 
+   - **Files**: `dbconfig.py`, `car_database.sql`
+   - **Description**: A file containing config details for connecting to the Database containing the cars. Currently the config details saved in this file access the database via Python Anywhere. If running the app locally, a sample SQL database `car_database.sql`, is also available in this folder. Import this file onto your local SQL and change the connection detalis in the `dbconfig.py` file accordingly. 
 
 ### 2. DAO Folder
    - **Files**: `car_sql_db_dao.py`, `private_cars_cso_dao.py` 
-   - **Description**: A script that accesses car data from the sql database, and a script that retrieves the dataset from the CSO's public API. 
+   - **Description**: Scripts to access the two data sources. One script interacts with the local SQL database and the other accesses the car registration data from the CSO public API. 
    - **Libraries/Modules**: `requests`, `json`, `pymysql`
 
 ### 3. Templates Folder
