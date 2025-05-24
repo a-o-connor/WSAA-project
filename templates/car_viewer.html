@@ -6,7 +6,7 @@
     </head>
     <style>
         table {
-            border-style: solid;
+            border-style: double;
             border-collapse: collapse;
             width: 100%;
         }
@@ -14,14 +14,18 @@
             border: 1px solid black;
         }
         tr:nth-child(even) {
-            background-color: #9a9e9ff0;
+            background-color: grey;
+        }
+        .spaced-button {
+            margin-right: 10px;
         }
     </style>
     <body onload="getAllAjax()">
-        <h1>Cars</h1>
+        <h1 style="font-family:Georgia;">Cars</h1>
+        <hr>
         <div> <button id="showCreateButton" onclick="showCreate()">Add New Car to Database</button>    <button id="showLicencedCarsButton" onclick="showLicencedCars()">View Recently Licenced Cars</button></div> 
         <div id="carTablePage">
-            <h3>Cars Database Table</h3>
+            <h3 style="font-family:Georgia;">Cars Database Table</h3>
             <table class="table" id="carTable">
                 <tr>
                         <th>Registration</th>
@@ -36,7 +40,8 @@
             </table>
         </div>
         <div id="licencedCarsTable" style="display: none">
-            <h3>Cars Licenced in Ireland: <span id="licencedCarsMonth">[Month]</span></h3>
+            <h3 style="font-family:Georgia;">Cars Licenced in Ireland: <span id="licencedCarsMonth">[Month]</span></h3>
+            <hr>
             <table class="table" id="recentlyLicencedCarsIrelandTable" style="display: none">
                 <tr>
                         <th>County</th>
