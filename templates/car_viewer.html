@@ -6,18 +6,28 @@
     </head>
     <style>
         table {
+            font-family:'Times New Roman', Times, serif;
             border-collapse: collapse;
             width: 100%;
         }
-        table, th, td {
+        table {
             border-bottom: 1px solid black;
+            padding: 5px;
+        }
+        th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #04AA6D;
+            color: white;  
         }
         tr:nth-child(even) {
-            background-color: lightgrey;
+            background-color: #dddddd;
         }
+        tr:hover {background-color: lightsalmon;}
     </style>
-    <body onload="getAllAjax()">
-        <h1 style="font-family:Georgia;">Cars</h1>
+    <body onload="getAllAjax()" style = "padding: 20px;">
+        <h1 style="font-family:Georgia; border: 2px solid salmon; text-align:center;">Cars</h1>
         <hr>
         <div> <button id="showCreateButton" onclick="showCreate()">Add New Car to Database</button>    <button id="showLicencedCarsButton" onclick="showLicencedCars()">View Recently Licenced Cars</button></div> 
         <div id="carTablePage">
