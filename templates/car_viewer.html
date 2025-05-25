@@ -5,6 +5,20 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
     <style>
+        button {
+                font-family: 'Times New Roman', Times, serif;
+                padding: 10px 20px;
+                font-size: 16px;
+                background-color: #04AA6D;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+        button:hover {
+            background-color: #038e5a;
+        }
         table {
             font-family:'Times New Roman', Times, serif;
             border-collapse: collapse;
@@ -28,8 +42,8 @@
         <h1 style="font-family:Georgia; border: 2px solid #04AA6D; text-align:center;">Cars</h1>
         <hr>
         <div> 
-            <button id="showCreateButton" onclick="showCreate()" style="padding: 10px 20px; font-family: 'Times New Roman', Times, serif; font-size: 16px;">Add New Car to Database</button>
-            <button id="showLicencedCarsButton" onclick="showLicencedCars()" style="padding: 10px 20px; font-family: 'Times New Roman', Times, serif; font-size: 16px;">View Recently Licenced Cars</button>
+            <button id="showCreateButton" onclick="showCreate()">Add New Car to Database</button>
+            <button id="showLicencedCarsButton" onclick="showLicencedCars()">View Recently Licenced Cars</button>
             </div> 
         <div id="carTablePage">
             <h3 style="font-family:Georgia; text-align:center; padding: 20px">Cars Database Table</h3>
