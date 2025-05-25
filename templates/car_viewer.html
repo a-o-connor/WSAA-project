@@ -5,24 +5,21 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
     <style>
-        table {
-            font-family:'Times New Roman', Times, serif;
-            border-collapse: collapse;
-            width: 100%;
-            border: 1px solid #04AA6D;
-            padding: 5px;
+        table, table th, table td {
+            font-family:'Times New Roman', Times, serif !important;
+            border: 1px solid #04AA6D !important;
+            padding: 5px !important;
         }
-        th {
-            padding-top: 12px;
-            padding-bottom: 12px;
-            text-align: left;
-            background-color: #04AA6D;
-            color: white;  
+        table th {
+            background-color: #04AA6D !important;
+            color: white !important;
         }
-        tr:nth-child(even) {
-            background-color: #dddddd;
+        table tr:nth-child(even) {
+            background-color: #dddddd !important;
         }
-        tr:hover {background-color: #38e3a4;}
+        table tr:hover {
+            background-color: #38e3a4 !important;
+        }
     </style>
     <body onload="getAllAjax()" style = "padding: 20px;">
         <h1 style="font-family:Georgia; border: 2px solid #04AA6D; text-align:center;">Cars</h1>
