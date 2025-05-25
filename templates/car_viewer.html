@@ -9,11 +9,8 @@
             font-family:'Times New Roman', Times, serif;
             border-collapse: collapse;
             width: 100%;
-        }
-        table {
             border: 1px solid #04AA6D;
             padding: 5px;
-            border: solid
         }
         th {
             padding-top: 12px;
@@ -32,7 +29,8 @@
         <hr>
         <div> <button id="showCreateButton" onclick="showCreate()">Add New Car to Database</button>    <button id="showLicencedCarsButton" onclick="showLicencedCars()">View Recently Licenced Cars</button></div> 
         <div id="carTablePage">
-            <h3 style="font-family:Georgia;">Cars Database Table</h3>
+            <h3 style="font-family:Georgia; text-align:center; padding: 20px">Cars Database Table</h3>
+            <hr>
             <table class="table" id="carTable">
                 <tr>
                         <th>Registration</th>
@@ -47,7 +45,7 @@
             </table>
         </div>
         <div id="licencedCarsTable" style="display: none">
-            <h3 style="font-family:Georgia;">Cars Licenced in Ireland: <span id="licencedCarsMonth">[Month]</span></h3>
+            <h3 style="font-family:Georgia; text-align:center; padding: 20px">Cars Licenced in Ireland: <span id="licencedCarsMonth">[Month]</span></h3>
             <hr>
             <table class="table" id="recentlyLicencedCarsIrelandTable" style="display: none">
                 <tr>
