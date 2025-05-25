@@ -11,8 +11,9 @@
             width: 100%;
         }
         table {
-            border-bottom: 1px solid black;
+            border: 1px solid #04AA6D;
             padding: 5px;
+            border: solid
         }
         th {
             padding-top: 12px;
@@ -24,10 +25,10 @@
         tr:nth-child(even) {
             background-color: #dddddd;
         }
-        tr:hover {background-color: lightsalmon;}
+        tr:hover {background-color: #38e3a4;}
     </style>
     <body onload="getAllAjax()" style = "padding: 20px;">
-        <h1 style="font-family:Georgia; border: 2px solid salmon; text-align:center;">Cars</h1>
+        <h1 style="font-family:Georgia; border: 2px solid #04AA6D; text-align:center;">Cars</h1>
         <hr>
         <div> <button id="showCreateButton" onclick="showCreate()">Add New Car to Database</button>    <button id="showLicencedCarsButton" onclick="showLicencedCars()">View Recently Licenced Cars</button></div> 
         <div id="carTablePage">
