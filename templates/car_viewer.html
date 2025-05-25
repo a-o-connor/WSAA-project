@@ -48,14 +48,13 @@
         </div>
         <div id="licencedCarsTable" style="display: none; text-align: center;">
             <h3 style="font-family:Georgia; text-align:center; padding: 20px">Cars Licenced in Ireland: <span id="licencedCarsMonth">[Month]</span></h3>
+            <div><button id="hideLicencedCarsButton" onclick="hideLicencedCars()">Return to Cars Database</button></div>
             <table class="table" id="recentlyLicencedCarsIrelandTable">
                 <tr>
                         <th>County</th>
                         <th>Cars</th>
                 </tr>
             </table>
-            <div><button id="hideLicencedCarsButton" onclick="hideLicencedCars()">Return to Cars Database</button></div></div>
-        </div>
         <div id='createUpdateForm' style="display: none">
                 <h2><span id="createLabel">Add a</span> <span id="updateLabel">Update a</span> Car</h2>
                 Registration <input type="text" name="registration" id="registration_input" /><br/>
@@ -307,7 +306,7 @@
                 for (county in cars_licenced_dict){
                     const cars = cars_licenced_dict[county]
                     const row = `<tr><td>${county}</td><td>${cars}</td></tr>`;
-                    $("#licencedCarsTable").append(row);
+                    $("#recentlyLicencedCarsIrelandTable").append(row);
                 }
 
                 showRecentlyLicencedTable(month);
